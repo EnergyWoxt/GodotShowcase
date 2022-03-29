@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://World/dirt.jpg" type="Texture" id=1]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 100, 100 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 3, 3, 2 )
+
+[sub_resource type="ProceduralSky" id=3]
+sun_color = Color( 1, 0.752941, 0.0980392, 1 )
+sun_latitude = 13.18
+sun_angle_max = 30.91
+sun_curve = 0.0120742
+sun_energy = 1.65
+
+[sub_resource type="Environment" id=4]
+background_mode = 2
+background_sky = SubResource( 3 )
+
+[node name="World" type="Spatial"]
+
+[node name="GIProbe" type="GIProbe" parent="."]
+layers = 15
+extents = Vector3( 50, 10, 50 )
+
+[node name="Map" type="MeshInstance" parent="."]
+use_in_baked_light = true
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="Sun" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.938974, 0.343987, 0, -0.343987, -0.938974, 0, 6.66114, 0 )
+light_color = Color( 1, 0.764706, 0.4, 1 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 4 )
